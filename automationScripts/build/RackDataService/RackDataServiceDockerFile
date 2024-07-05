@@ -1,0 +1,13 @@
+FROM ubuntu:latest
+
+LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
+
+RUN apt update && apt upgrade -y && apt-get -y install openjdk-17-jdk
+
+RUN java -version
+
+RUN mkdir -p /usr/app/rackDataService
+
+ADD RackDataService/target/rackdataservice*.jar /usr/app/rackDataService/RackDataService.jar
+
+CMD ["java", "-jar", "/usr/app/rackDataService/RackDataService.jar"]

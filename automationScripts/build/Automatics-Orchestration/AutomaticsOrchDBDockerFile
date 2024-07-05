@@ -1,0 +1,7 @@
+FROM mariadb:10.11
+
+LABEL "AUTHOR"="Shameem M Shereef <shameemm.s@tataelxsi.co.in>"
+
+ENV MYSQL_DATABASE automatics
+
+COPY resources/ /docker-entrypoint-initdb.d/

@@ -1,0 +1,15 @@
+FROM jenkins/jenkins:latest-jdk17
+
+USER root
+
+RUN apt-get update && apt-get install -y lsb-release ca-certificates apt-utils
+RUN curl -fsSL https://get.docker.com -o get-docker.sh
+RUN sh get-docker.sh
+RUN apt-get update && apt-get install wget
+RUN apt-get install -y maven
+RUN mvn -version
+COPY settings.xml /usr/share/maven/conf/settings.xml
+
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt --verbose
+RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
